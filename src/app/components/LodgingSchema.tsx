@@ -14,13 +14,15 @@ export default function LodgingSchema() {
       'Domaine de nature et de patrimoine depuis 1678 à Aïn Sahla, aux portes du Parc National de Tazekka, Taza, Maroc.',
     url: siteConfig?.siteUrl,
     image: `${siteConfig?.siteUrl}/assets/images/app_logo.png`,
-    telephone: siteConfig?.contact?.phoneDisplay,
+    telephone: siteConfig?.contact?.phoneHref?.replace('tel:', ''),
     email: siteConfig?.contact?.email,
     foundingDate: String(siteConfig?.founded),
     priceRange: 'MAD',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Village Aïn Sahla, Commune Bouchfaa, Cercle Oued Amlil',
       addressLocality: 'Aïn Sahla, Taza',
+      addressRegion: 'Fès-Meknès',
       addressCountry: 'MA',
     },
     geo: {
@@ -29,7 +31,7 @@ export default function LodgingSchema() {
       longitude: siteConfig?.geo?.longitude,
     },
     availableLanguage: ['fr', 'en', 'ar'],
-    sameAs: [siteConfig?.social?.instagram, siteConfig?.social?.facebook],
+    sameAs: [siteConfig?.social?.instagram, siteConfig?.social?.facebook].filter(Boolean),
     potentialAction: {
       '@type': 'ReserveAction',
       target: siteConfig?.bookingUrl,

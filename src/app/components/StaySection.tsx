@@ -5,32 +5,11 @@ import Reveal from '@/components/Reveal';
 import RoomCard from './RoomCard';
 import { useTranslation } from '@/context/LanguageContext';
 import { roomPhotos } from '@/data/media';
+import { accommodations } from '@/data/accommodations';
 
-// Ordre = ordre des catégories dans les traductions
-const roomKeys = ['chambre-double', 'dortoir', 'petite-suite', 'grande-suite', 'domaine'];
-
-/**
- * Hébergement : 5 cartes.
- * Grille desktop 6 colonnes -> ligne 1 : 3 cartes (2+2+2), ligne 2 : 2 cartes (3+3)
- * avec la dernière carte "domaine" en pleine largeur pour combler la grille.
- *
- * Audit bento (5 cartes) :
- *  Row 1: [col-1: Chambre double cs-2] [col-2: Dortoir cs-2] [col-3: Petite suite cs-2]
- *  Row 2: [col-1: Grande suite cs-3] [col-2: Grande suite cs-3 suite] -> remplacé ci-dessous
- *  Placé : 5/5 — Row 2 = Grande suite (cs-3) + (rien) interdit -> on utilise :
- *  Row 2: Grande suite cs-2 / Domaine cs-4  => 6 colonnes pleines, aucune cellule vide.
- */
+/** Hébergement : 4 catégories réelles (chambre double, grande suite, petite suite, dortoirs), grille 2 colonnes. */
 export default function StaySection() {
   const { t } = useTranslation();
-
-  // Largeur (en colonnes sur 6) de chaque carte à partir de md/xl
-  const spans = [
-    'xl:col-span-2', // chambre double
-    'xl:col-span-2', // dortoir
-    'xl:col-span-2', // petite suite
-    'xl:col-span-2', // grande suite
-    'xl:col-span-4', // domaine (mise en avant)
-  ];
 
   return (
     <section id="hebergement" className="bg-secondary pt-16 pb-20 md:pt-20 md:pb-24">
@@ -40,29 +19,15 @@ export default function StaySection() {
           <h2 className="font-display text-section-xl font-semibold text-foreground">{t?.stay?.title}</h2>
           <div className="ochre-rule mt-6 w-32" aria-hidden="true" />
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">{t?.stay?.intro}</p>
+          <p className="mt-3 text-base font-medium text-foreground">{t?.stay?.note}</p>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-6">
-          {t?.stay?.rooms?.map((room, i) => {
-            const key = roomKeys?.[i];
-            const isDomain = key === 'domaine';
-            return (
-              <Reveal
-                key={key}
-                delay={(i % 3) * 100}
-                className={`${spans?.[i]} ${isDomain ? 'md:col-span-2' : ''}`}
-              >
-                <RoomCard
-                  name={room?.name}
-                  capacity={room?.capacity}
-                  text={room?.text}
-                  amenities={room?.amenities}
-                  photos={roomPhotos?.[key]}
-                  featured={isDomain}
-                />
-              </Reveal>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {accommodations.map((room, i) => (
+            <Reveal key={room.id} delay={(i % 2) * 100}>
+              <RoomCard room={room} photos={roomPhotos[room.id]} />
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

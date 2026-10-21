@@ -5,14 +5,14 @@ import Reveal from '@/components/Reveal';
 import AppImage from '@/components/ui/AppImage';
 import { useTranslation } from '@/context/LanguageContext';
 
-/** Notre histoire : récit éditorial + chronologie horizontale-verticale sobre. */
+/** Notre histoire : récit éditorial + points forts du domaine. */
 export default function StorySection() {
   const { t, lang } = useTranslation();
 
   const altText = {
-    fr: 'Cour intérieure historique du domaine Azzaouia aux murs de pierre claire',
-    en: 'Historic inner courtyard of Azzaouia estate with light stone walls',
-    ar: 'الفناء الداخلي التاريخي لمنتجع الزاوية بجدرانه الحجرية الفاتحة',
+    fr: 'Le Domaine — Azzaouia Resort',
+    en: 'The Estate — Azzaouia Resort',
+    ar: 'المنتجع — منتجع الزاوية',
   };
 
   return (
@@ -31,20 +31,19 @@ export default function StorySection() {
               ))}
             </div>
 
-            <ol className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {t?.story?.timeline?.map((item) => (
-                <li key={item?.year} className="border-t border-accent pt-4">
-                  <span className="font-display text-3xl font-semibold text-primary">{item?.year}</span>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item?.text}</p>
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+              {t?.story?.features?.map((f) => (
+                <li key={f} className="border-t border-accent pt-4">
+                  <p className="font-display text-xl font-semibold leading-snug text-primary">{f}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </Reveal>
 
           <Reveal delay={150}>
             <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-secondary card-shadow lg:aspect-[4/5]">
               <AppImage
-                src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1000&q=75&auto=format&fit=crop"
+                src="/assets/photos/galerie/galerie-01.jpg"
                 alt={altText?.[lang]}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"

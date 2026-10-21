@@ -55,6 +55,12 @@ export default function ContactSection() {
       href: siteConfig.contact.phoneHref,
     },
     {
+      icon: 'PhoneIcon',
+      label: t.contact.phone,
+      value: siteConfig.contact.phoneDisplaySecondary,
+      href: siteConfig.contact.phoneHrefSecondary,
+    },
+    {
       icon: 'EnvelopeIcon',
       label: t.contact.email,
       value: siteConfig.contact.email,
@@ -64,6 +70,18 @@ export default function ContactSection() {
       icon: 'MapPinIcon',
       label: t.contact.address,
       value: siteConfig.contact.address,
+      href: undefined,
+    },
+    {
+      icon: 'ClockIcon',
+      label: t.contact.desk,
+      value: t.contact.deskValue,
+      href: undefined,
+    },
+    {
+      icon: 'CreditCardIcon',
+      label: t.contact.payment,
+      value: t.contact.paymentValue,
       href: undefined,
     },
   ];
@@ -95,7 +113,7 @@ export default function ContactSection() {
                   </>
                 );
                 return (
-                  <li key={c.label} className="border-b border-border last:border-b-0">
+                  <li key={`${c.label}-${c.value}`} className="border-b border-border last:border-b-0">
                     {c.href ? (
                       <a
                         href={c.href}

@@ -10,13 +10,10 @@ import { siteConfig } from '@/config/site';
 export default function LocationSection() {
   const { t } = useTranslation();
   const { latitude, longitude } = siteConfig?.geo;
-  const embed = `https://maps.google.com/maps?q=${latitude},${longitude}&z=11&output=embed`;
+  const embed = `https://maps.google.com/maps?q=${latitude},${longitude}&z=13&output=embed`;
   const open = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 
-  const routes = [
-    { label: t?.location?.fromTaza, text: t?.location?.fromTazaText },
-    { label: t?.location?.fromFes, text: t?.location?.fromFesText },
-  ];
+  const routes = t?.location?.items;
 
   return (
     <section id="localisation" className="bg-secondary py-16 md:py-24">

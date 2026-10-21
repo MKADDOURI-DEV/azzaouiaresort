@@ -13,32 +13,39 @@ export const siteConfig = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
 
   contact: {
-    phoneDisplay: '+212 6 61 00 00 00',
-    phoneHref: 'tel:+212661000000',
-    whatsappNumber: '212661000000',
-    email: 'contact@azzaouiaresort.ma',
-    address: 'Aïn Sahla, Taza, Maroc',
+    // Numéros affichés sur la section Contact de l'ancien site
+    phoneDisplay: '06 63 33 56 72',
+    phoneDisplaySecondary: '06 70 19 60 94',
+    phoneHref: 'tel:+212663335672',
+    phoneHrefSecondary: 'tel:+212670196094',
+    whatsappNumber: '212663335672',
+    email: 'azzaouiaresort@gmail.com',
+    address: 'Village Aïn Sahla, Commune Bouchfaa, Cercle Oued Amlil, Province de Taza, Maroc',
   },
 
-  geo: { latitude: 34.1646, longitude: -4.0097 },
+  geo: { latitude: 34.18, longitude: -4.26 }, // repère de la carte de l'ancien site
 
+  // Renseigner les vraies URLs pour afficher les icônes dans le footer
   social: {
-    instagram: 'https://instagram.com/',
-    facebook: 'https://facebook.com/',
+    instagram: '',
+    facebook: '',
   },
 } as const;
 
-/** Construit le lien de réservation, avec dates/voyageurs en paramètres indicatifs. */
+/**
+ * Construit le lien Nozoul. Le moteur attend exactement : period=ARRIVEE,DEPART & adults=N
+ * (& child=N & ages=A,B si enfants). Même format que l'ancien site.
+ */
 export function buildBookingUrl(params?: { checkIn?: string; checkOut?: string; guests?: number }) {
-  if (!params || (!params.checkIn && !params.checkOut && !params.guests)) {
-    return siteConfig.bookingUrl;
+  if (!params) return siteConfig.bookingUrl;
+  const pairs: string[] = [];
+  if (params.checkIn && params.checkOut) {
+    pairs.push(`period=${encodeURIComponent(`${params.checkIn},${params.checkOut}`)}`);
   }
-  // Le moteur utilise un routeur à ancre : on ajoute les paramètres en requête indicative.
-  const query = new URLSearchParams();
-  if (params.checkIn) query.set('checkIn', params.checkIn);
-  if (params.checkOut) query.set('checkOut', params.checkOut);
-  if (params.guests) query.set('guests', String(params.guests));
-  return `${siteConfig.bookingUrl}?${query.toString()}`;
+  if (params.guests) pairs.push(`adults=${encodeURIComponent(String(params.guests))}`);
+  if (!pairs.length) return siteConfig.bookingUrl;
+  const base = siteConfig.bookingUrl;
+  return `${base}${base.includes('?') ? '&' : '?'}${pairs.join('&')}`;
 }
 
 export function whatsappLink(message: string) {

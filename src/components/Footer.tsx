@@ -46,7 +46,7 @@ export default function Footer() {
             © {year} {siteConfig?.name}. {t?.footer?.rights}
           </p>
           <div className="flex items-center gap-6">
-            <a
+            {siteConfig?.social?.instagram && <a
               href={siteConfig?.social?.instagram}
               target="_blank"
               rel="noopener noreferrer"
@@ -54,8 +54,8 @@ export default function Footer() {
               className="tap-44 inline-flex items-center justify-center text-muted-foreground hover:text-primary"
             >
               <Icon name="CameraIcon" size={22} />
-            </a>
-            <a
+            </a>}
+            {siteConfig?.social?.facebook && <a
               href={siteConfig?.social?.facebook}
               target="_blank"
               rel="noopener noreferrer"
@@ -63,7 +63,7 @@ export default function Footer() {
               className="tap-44 inline-flex items-center justify-center text-muted-foreground hover:text-primary"
             >
               <Icon name="UserGroupIcon" size={22} />
-            </a>
+            </a>}
             <a href="#top" className="tap-44 inline-flex items-center text-[15px] font-medium text-muted-foreground hover:text-foreground">
               {t?.footer?.legal}
             </a>

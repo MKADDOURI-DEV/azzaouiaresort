@@ -6,16 +6,16 @@ import Reveal from '@/components/Reveal';
 import AppImage from '@/components/ui/AppImage';
 import { useTranslation } from '@/context/LanguageContext';
 
-const icons = ['CakeIcon', 'MapIcon', 'BriefcaseIcon', 'SparklesIcon'];
+const icons = ['CakeIcon', 'SparklesIcon', 'MapPinIcon', 'MapIcon']; // restauration, événementiel, transport, randonnées
 
 /** Services et expériences : colonne d'image sticky + liste, jamais une grille d'icônes uniforme. */
 export default function ServicesSection() {
   const { t, lang } = useTranslation();
 
   const altText = {
-    fr: 'Randonneurs sur un sentier du parc national de Tazekka à la lumière du matin',
-    en: 'Hikers on a Tazekka National Park trail in the morning light',
-    ar: 'متنزهون على مسار في المنتزه الوطني لتازكا في ضوء الصباح',
+    fr: 'Le Domaine — Azzaouia Resort',
+    en: 'The Estate — Azzaouia Resort',
+    ar: 'المنتجع — منتجع الزاوية',
   };
 
   return (
@@ -26,7 +26,7 @@ export default function ServicesSection() {
           <Reveal className="lg:sticky lg:top-28">
             <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-secondary card-shadow lg:aspect-[4/5]">
               <AppImage
-                src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1000&q=75&auto=format&fit=crop"
+                src="/assets/photos/galerie/galerie-02.jpg"
                 alt={altText?.[lang]}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

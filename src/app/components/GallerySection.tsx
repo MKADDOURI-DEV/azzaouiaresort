@@ -7,7 +7,7 @@ import Reveal from '@/components/Reveal';
 import { useTranslation } from '@/context/LanguageContext';
 import { galleryPhotos, type GalleryFilter } from '@/data/media';
 
-const filterKeys: GalleryFilter[] = ['all', 'rooms', 'estate', 'nature', 'dining'];
+const filterKeys: GalleryFilter[] = ['all', 'rooms', 'suites', 'dorms', 'grounds'];
 
 // Hauteur selon le ratio pour un effet masonry (colonnes CSS)
 const ratioClass: Record<string, string> = {

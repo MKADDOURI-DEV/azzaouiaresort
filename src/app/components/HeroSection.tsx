@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import Icon from '@/components/ui/AppIcon';
 import { useTranslation } from '@/context/LanguageContext';
 import { buildBookingUrl, siteConfig } from '@/config/site';
-import { heroPhoto } from '@/data/media';
+import { heroPhoto, heroVideo } from '@/data/media';
 
 /**
  * Hero plein écran : photo 1920x1080, zoom Ken Burns lent, léger dégradé en bas.
@@ -16,6 +16,38 @@ export default function HeroSection() {
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(2);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  // Vidéo hero chargée en différé, version mobile plus légère ; la photo reste le poster/fallback.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const conn = (navigator as any).connection || {};
+    const slow = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (slow || reduce) return;
+    const start = () => {
+      const mobile = window.matchMedia('(max-width: 768px)').matches;
+      v.src = mobile ? heroVideo.mobile : heroVideo.desktop;
+      v.addEventListener(
+        'canplay',
+        () => {
+          v.play().catch(() => {});
+          setVideoReady(true);
+        },
+        { once: true }
+      );
+      v.load();
+    };
+    const idle = (window as any).requestIdleCallback;
+    const id = idle ? idle(start, { timeout: 2500 }) : window.setTimeout(start, 800);
+    return () => {
+      if (idle) (window as any).cancelIdleCallback?.(id);
+      else window.clearTimeout(id);
+    };
+  }, []);
 
   const handleSearch = () => {
     const url = buildBookingUrl({ checkIn, checkOut, guests });
@@ -37,6 +69,19 @@ export default function HeroSection() {
             className="object-cover"
           />
         </div>
+        {/* Vidéo (fondu par-dessus la photo une fois prête) */}
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-hidden="true"
+          tabIndex={-1}
+          className={`absolute inset-0 h-full w-full object-cover pointer-events-none transition-opacity duration-[1200ms] ${
+            videoReady ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
         {/* Dégradé très léger, uniquement en bas */}
         <div className="absolute inset-0 hero-scrim" aria-hidden="true" />
 
