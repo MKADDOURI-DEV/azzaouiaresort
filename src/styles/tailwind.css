@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Palette "Sable & Lumière" — hex uniquement ici */
+:root {
+  --background: #FBF6EC;
+  --foreground: #2B2B2B;
+  --primary: #C0673F;
+  --primary-foreground: #FFFDF8;
+  --secondary: #F1E7D3;
+  --secondary-foreground: #2B2B2B;
+  --accent: #D9A441;
+  --accent-foreground: #2B2B2B;
+  --muted: #F1E7D3;
+  --muted-foreground: #6B6459;
+  --card: #FFFDF8;
+  --card-foreground: #2B2B2B;
+  --border: #E6D9BF;
+  --input: #E6D9BF;
+  --ring: #C0673F;
+  --radius: 16px;
+  --success: #8FA58A;
+  --success-foreground: #2B2B2B;
+  --warning: #D9A441;
+  --warning-foreground: #2B2B2B;
+  --destructive: #A83A2A;
+  --destructive-foreground: #FFFDF8;
+  --sage: #8FA58A;
+  --font-sans: var(--font-dm-sans), sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+  /* Arabe : police Cairo, direction RTL */
+  html[dir='rtl'] body,
+  html[dir='rtl'] h1,
+  html[dir='rtl'] h2,
+  html[dir='rtl'] h3,
+  html[dir='rtl'] h4 {
+    font-family: var(--font-cairo), sans-serif;
+  }
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-cormorant), serif;
+  }
+  html[dir='rtl'] .font-display {
+    font-family: var(--font-cairo), serif;
+    letter-spacing: 0;
+  }
+  .text-hero-xl {
+    font-size: clamp(2.75rem, 8vw, 6.5rem);
+    line-height: 1.02;
+  }
+  .text-section-xl {
+    font-size: clamp(2.1rem, 5vw, 3.75rem);
+    line-height: 1.08;
+  }
+  .ochre-rule {
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+  }
+  html[dir='rtl'] .ochre-rule {
+    background: linear-gradient(to left, var(--accent), transparent);
+  }
+  .hero-scrim {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0) 38%);
+  }
+  .hero-text-shadow {
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+  }
+  .card-shadow {
+    box-shadow: 0 18px 40px -22px rgba(120, 84, 40, 0.35);
+  }
+  .tap-44 {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Ken Burns : zoom lent du hero */
+@keyframes kenburns {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.09) translate3d(-1%, -1%, 0); }
+}
+.animate-kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Reveals au scroll : visibles par défaut, animation ajoutée par observer */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-reveal {
+  animation: revealUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(217, 164, 65, 0.55); }
+  70% { box-shadow: 0 0 0 14px rgba(217, 164, 65, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(217, 164, 65, 0); }
+}
+.animate-pulse-ring {
+  animation: pulseRing 2.4s infinite;
+}
+
+/* Respect des préférences de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-reveal,
+  .animate-pulse-ring {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
