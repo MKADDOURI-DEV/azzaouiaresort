@@ -7,6 +7,9 @@ import Reveal from '@/components/Reveal';
 import { useTranslation } from '@/context/LanguageContext';
 import { galleryPhotos, type GalleryFilter } from '@/data/media';
 
+/** Nombre de photos affichées avant le badge "+N" (le clic ouvre la lightbox avec toutes les photos). */
+const GALLERY_MAX = 8;
+
 const filterKeys: GalleryFilter[] = ['all', 'rooms', 'suites', 'dorms', 'grounds'];
 
 // Hauteur selon le ratio pour un effet masonry (colonnes CSS)
@@ -26,6 +29,9 @@ export default function GallerySection() {
     () => (filter === 'all' ? galleryPhotos : galleryPhotos.filter((p) => p.filter === filter)),
     [filter]
   );
+
+  const shown = visible.slice(0, GALLERY_MAX);
+  const extra = visible.length - shown.length;
 
   const close = useCallback(() => setLightbox(null), []);
   const move = useCallback(
@@ -84,7 +90,7 @@ export default function GallerySection() {
 
         {/* Masonry par colonnes CSS : aucune cellule vide possible */}
         <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-          {visible.map((photo, i) => (
+          {shown.map((photo, i) => (
             <button
               key={photo.src}
               type="button"
@@ -101,6 +107,14 @@ export default function GallerySection() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              {extra > 0 && i === shown.length - 1 && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 flex items-center justify-center bg-foreground/55 font-display text-5xl font-semibold text-primary-foreground"
+                >
+                  +{extra}
+                </span>
+              )}
             </button>
           ))}
         </div>

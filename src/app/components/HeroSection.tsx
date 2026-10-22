@@ -11,11 +11,35 @@ import { heroPhoto, heroVideo } from '@/data/media';
  * Hero plein écran : photo 1920x1080, zoom Ken Burns lent, léger dégradé en bas.
  * La barre de réservation chevauche le bas du hero.
  */
+const toISO = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+const addDays = (iso: string, n: number) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return toISO(new Date(y, m - 1, d + n));
+};
+
 export default function HeroSection() {
   const { t, lang } = useTranslation();
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(2);
+
+  // Dates passées désactivées : "aujourd'hui" calculé côté client (évite un décalage SSR/fuseau).
+  const [today, setToday] = useState('');
+  useEffect(() => setToday(toISO(new Date())), []);
+
+  const minCheckOut = checkIn ? addDays(checkIn, 1) : today ? addDays(today, 1) : undefined;
+
+  const onCheckIn = (value: string) => {
+    const v = today && value && value < today ? today : value; // saisie manuelle d'un jour passé → aujourd'hui
+    setCheckIn(v);
+    if (checkOut && v && checkOut <= v) setCheckOut('');
+  };
+  const onCheckOut = (value: string) => {
+    const min = minCheckOut;
+    setCheckOut(min && value && value < min ? min : value);
+  };
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -125,7 +149,8 @@ export default function HeroSection() {
               <input
                 type="date"
                 value={checkIn}
-                onChange={(e) => setCheckIn(e?.target?.value)}
+                min={today || undefined}
+                onChange={(e) => onCheckIn(e?.target?.value)}
                 className="h-12 w-full rounded-md border border-input bg-background px-3 text-base text-foreground focus:border-primary focus:outline-none"
               />
             </label>
@@ -136,8 +161,8 @@ export default function HeroSection() {
               <input
                 type="date"
                 value={checkOut}
-                min={checkIn || undefined}
-                onChange={(e) => setCheckOut(e?.target?.value)}
+                min={minCheckOut}
+                onChange={(e) => onCheckOut(e?.target?.value)}
                 className="h-12 w-full rounded-md border border-input bg-background px-3 text-base text-foreground focus:border-primary focus:outline-none"
               />
             </label>

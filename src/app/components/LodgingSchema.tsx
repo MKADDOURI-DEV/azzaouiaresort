@@ -13,7 +13,7 @@ export default function LodgingSchema() {
     description:
       'Domaine de nature et de patrimoine depuis 1678 à Aïn Sahla, aux portes du Parc National de Tazekka, Taza, Maroc.',
     url: siteConfig?.siteUrl,
-    image: `${siteConfig?.siteUrl}/assets/images/app_logo.png`,
+    image: `${siteConfig?.siteUrl}/assets/images/og-image.png`,
     telephone: siteConfig?.contact?.phoneHref?.replace('tel:', ''),
     email: siteConfig?.contact?.email,
     foundingDate: String(siteConfig?.founded),

@@ -7,15 +7,17 @@ import AppImage from './AppImage';
 interface AppLogoProps {
   src?: string; // Image source (optional)
   iconName?: string; // Icon name when no image
-  size?: number; // Size for icon/image
+  size?: number; // Hauteur du logo (px)
+  ratio?: number; // largeur / hauteur (1 = carré)
   className?: string; // Additional classes
   onClick?: () => void; // Click handler
 }
 
 const AppLogo = memo(function AppLogo({
-  src = '/assets/images/app_logo.png',
+  src = '/assets/images/logo-mark.svg',
   iconName = 'SparklesIcon',
   size = 64,
+  ratio = 1,
   className = '',
   onClick,
 }: AppLogoProps) {
@@ -33,8 +35,8 @@ const AppLogo = memo(function AppLogo({
       {src ? (
         <AppImage
           src={src}
-          alt="Logo" 
-          width={size}
+          alt="Azzaouia Resort"
+          width={Math.round(size * ratio)}
           height={size}
           className="flex-shrink-0"
           priority={true}

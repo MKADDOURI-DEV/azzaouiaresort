@@ -43,12 +43,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AZZAOUIA RESORT — Depuis 1678, aux portes de Tazekka',
     description:
-      'Un domaine de nature et de patrimoine à Taza, Maroc. Réservez en direct, sans commission.',
+      'Domaine de charme à Aïn Sahla (Taza), aux portes du Parc National de Tazekka : hébergement, restauration, événements et randonnées. Réservation en ligne.',
     type: 'website',
-    images: [{ url: '/assets/images/app_logo.png', width: 1200, height: 630 }],
+    images: [{ url: '/assets/images/og-image.png', width: 1200, height: 630 }],
   },
   icons: {
     icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
 };
 
