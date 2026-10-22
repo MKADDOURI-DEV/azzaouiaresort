@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useMemo, memo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import Image from 'next/image';
 
 interface AppImageProps {
@@ -43,6 +43,13 @@ const AppImage = memo(function AppImage({
     const [imageSrc, setImageSrc] = useState(src);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+
+    // Quand la prop `src` change (lightbox, carrousel), on resynchronise l'image affichée
+    useEffect(() => {
+        setImageSrc(src);
+        setHasError(false);
+        setIsLoading(true);
+    }, [src]);
 
     const isExternalUrl = useMemo(() => typeof imageSrc === 'string' && imageSrc.startsWith('http'), [imageSrc]);
     const resolvedUnoptimized = unoptimized || isExternalUrl;
@@ -100,7 +107,7 @@ const AppImage = memo(function AppImage({
                     {...imageProps}
                     fill
                     sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
-                    style={{ objectFit: 'cover' }}
+                    style={/\bobject-/.test(className) ? undefined : { objectFit: 'cover' }}
                     {...props}
                 />
             </div>

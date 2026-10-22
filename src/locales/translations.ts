@@ -17,7 +17,7 @@ export interface Dictionary {
   highlights: { eyebrow: string; title: string; items: { title: string; text: string }[] };
   stay: { eyebrow: string; title: string; intro: string; note: string; book: string; from: string; perNight: string; rates: string; goodToKnow: string; prev: string; next: string };
   services: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[] };
-  gallery: { eyebrow: string; title: string; intro: string; filters: { all: string; rooms: string; suites: string; dorms: string; grounds: string }; close: string; prev: string; next: string };
+  gallery: { eyebrow: string; title: string; intro: string; filters: { all: string; rooms: string; suites: string; dorms: string; grounds: string }; less: string; close: string; prev: string; next: string };
   story: { eyebrow: string; title: string; paragraphs: string[]; features: string[]; since: string; tagline: string };
   location: { eyebrow: string; title: string; intro: string; items: { label: string; text: string }[]; mapTitle: string; openMap: string };
   contact: {
@@ -125,6 +125,7 @@ export const translations: Record<Lang, Dictionary> = {
         "dorms": "Dortoirs",
         "grounds": "Domaine"
       },
+      "less": "Voir moins",
       "close": "Fermer",
       "prev": "Précédente",
       "next": "Suivante"
@@ -304,6 +305,7 @@ export const translations: Record<Lang, Dictionary> = {
         "dorms": "Dormitories",
         "grounds": "Grounds"
       },
+      "less": "Show less",
       "close": "Close",
       "prev": "Previous",
       "next": "Next"
@@ -483,6 +485,7 @@ export const translations: Record<Lang, Dictionary> = {
         "dorms": "المهاجع",
         "grounds": "المنتجع"
       },
+      "less": "عرض أقل",
       "close": "إغلاق",
       "prev": "السابقة",
       "next": "التالية"

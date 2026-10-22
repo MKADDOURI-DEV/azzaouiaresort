@@ -24,13 +24,14 @@ export default function GallerySection() {
   const { t, lang } = useTranslation();
   const [filter, setFilter] = useState<GalleryFilter>('all');
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const visible = useMemo(
     () => (filter === 'all' ? galleryPhotos : galleryPhotos.filter((p) => p.filter === filter)),
     [filter]
   );
 
-  const shown = visible.slice(0, GALLERY_MAX);
+  const shown = expanded ? visible : visible.slice(0, GALLERY_MAX);
   const extra = visible.length - shown.length;
 
   const close = useCallback(() => setLightbox(null), []);
@@ -76,7 +77,10 @@ export default function GallerySection() {
               type="button"
               role="tab"
               aria-selected={filter === key}
-              onClick={() => setFilter(key)}
+              onClick={() => {
+                setFilter(key);
+                setExpanded(false);
+              }}
               className={`tap-44 rounded-full px-5 text-sm font-semibold transition-colors ${
                 filter === key
                   ? 'bg-primary text-primary-foreground'
@@ -94,7 +98,7 @@ export default function GallerySection() {
             <button
               key={photo.src}
               type="button"
-              onClick={() => setLightbox(i)}
+              onClick={() => (extra > 0 && i === shown.length - 1 ? setExpanded(true) : setLightbox(i))}
               className={`group relative mb-4 block w-full overflow-hidden rounded-lg bg-card break-inside-avoid animate-fade ${
                 ratioClass[photo.ratio || 'landscape']
               }`}
@@ -118,6 +122,21 @@ export default function GallerySection() {
             </button>
           ))}
         </div>
+
+        {expanded && visible.length > GALLERY_MAX && (
+          <div className="mt-6 flex justify-center">
+            <button
+              type="button"
+              onClick={() => {
+                setExpanded(false);
+                document.getElementById('galerie')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="tap-44 rounded-full border border-border bg-card px-8 text-sm font-semibold text-card-foreground transition-colors hover:bg-background"
+            >
+              {t.gallery.less}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}
@@ -160,11 +179,16 @@ export default function GallerySection() {
             <Icon name="ChevronRightIcon" size={24} className="rtl:rotate-180" />
           </button>
 
+          <p className="absolute bottom-4 start-1/2 -translate-x-1/2 rounded-full bg-card/90 px-4 py-1 text-sm font-semibold text-card-foreground rtl:translate-x-1/2" dir="ltr">
+            {(lightbox ?? 0) + 1} / {visible.length}
+          </p>
+
           <div
             className="relative h-[70vh] w-full max-w-5xl overflow-hidden rounded-lg bg-secondary"
             onClick={(e) => e.stopPropagation()}
           >
             <AppImage
+              key={active.src}
               src={active.src}
               alt={active.alt[lang]}
               fill
