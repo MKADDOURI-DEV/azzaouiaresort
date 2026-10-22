@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 20 80 98" width="160" height="196" role="img" aria-label="Azzaouia Resort"><defs><clipPath id="mc"><path d="M28 112 V72.5 A25 25 0 1 1 72 72.5 V112 Z"/></clipPath></defs>
-  <path d="M22 112 V72 A31 31 0 1 1 78 72 V112 Z" fill="none" stroke="#C0673F" stroke-width="3.6" stroke-linejoin="round"/>
-  <g clip-path="url(#mc)">
-    <circle cx="50" cy="60" r="9" fill="#D9A441"/>
-    <path d="M20 112 V94 L38 72 L50 84 L63 68 L82 94 V112 Z" fill="#8FA58A"/>
-    <path d="M20 112 V100 L36 86 L50 98 L66 82 L82 102 V112 Z" fill="#C0673F"/>
-  </g>
-  <path d="M28 112 V72.5 A25 25 0 1 1 72 72.5 V112" fill="none" stroke="#D9A441" stroke-width="1.4"/></svg>

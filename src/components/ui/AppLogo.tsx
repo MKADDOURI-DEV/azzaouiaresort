@@ -14,7 +14,7 @@ interface AppLogoProps {
 }
 
 const AppLogo = memo(function AppLogo({
-  src = '/assets/images/logo-mark.svg',
+  src = '/assets/images/logo-azzaouia.png',
   iconName = 'SparklesIcon',
   size = 64,
   ratio = 1,

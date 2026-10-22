@@ -53,15 +53,12 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="AZZAOUIA RESORT">
-          <AppLogo size={46} ratio={0.82} />
-          <span
-            className={`font-display text-lg sm:text-xl font-semibold tracking-wide ${
-              solid ? 'text-foreground' : 'text-background hero-text-shadow'
-            }`}
-          >
-            AZZAOUIA
-          </span>
+        <a href="#top" className="flex items-center" aria-label="AZZAOUIA RESORT">
+          <AppLogo
+            src={solid ? '/assets/images/logo-azzaouia.png' : '/assets/images/logo-azzaouia-light.png'}
+            size={64}
+            ratio={1.015}
+          />
         </a>
 
         {/* Desktop */}

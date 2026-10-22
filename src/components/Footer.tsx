@@ -23,8 +23,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 md:py-20">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <AppLogo size={54} ratio={0.82} />
-            <span className="font-display text-2xl font-semibold text-foreground">AZZAOUIA RESORT</span>
+            <AppLogo size={96} ratio={1.015} />
+            <span className="sr-only">AZZAOUIA RESORT</span>
           </div>
 
           <ul className="flex flex-wrap gap-x-10 gap-y-3">
