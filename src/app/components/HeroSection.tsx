@@ -23,7 +23,17 @@ export default function HeroSection() {
   const { t, lang } = useTranslation();
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [guests, setGuests] = useState(2);
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [childAges, setChildAges] = useState<string[]>([]);
+  const [agesError, setAgesError] = useState(false);
+
+  const changeChildren = (delta: 1 | -1) => {
+    const next = Math.min(10, Math.max(0, children + delta));
+    setChildren(next);
+    setChildAges((ages) => (next > ages.length ? [...ages, ''] : ages.slice(0, next)));
+    setAgesError(false);
+  };
 
   // Dates passées désactivées : "aujourd'hui" calculé côté client (évite un décalage SSR/fuseau).
   const [today, setToday] = useState('');
@@ -74,7 +84,12 @@ export default function HeroSection() {
   }, []);
 
   const handleSearch = () => {
-    const url = buildBookingUrl({ checkIn, checkOut, guests });
+    // Chaque enfant doit avoir un âge (Nozoul calcule le tarif enfant avec)
+    if (children > 0 && childAges.some((a) => a === '')) {
+      setAgesError(true);
+      return;
+    }
+    const url = buildBookingUrl({ checkIn, checkOut, adults, children, childAges });
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -141,7 +156,7 @@ export default function HeroSection() {
       {/* Barre de réservation flottante chevauchant le hero */}
       <div className="relative z-20 mx-auto -mt-16 md:-mt-14 max-w-5xl px-4 sm:px-6">
         <div className="rounded-lg border border-border bg-card p-4 card-shadow md:p-5">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1fr_1fr_auto] md:items-end">
             <label className="flex flex-col gap-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {t?.booking?.checkIn}
@@ -168,23 +183,49 @@ export default function HeroSection() {
             </label>
             <div className="flex flex-col gap-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t?.booking?.guests}
+                {t?.booking?.adults}
               </span>
               <div className="flex h-12 items-center justify-between rounded-md border border-input bg-background px-1">
                 <button
                   type="button"
-                  onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                  onClick={() => setAdults((a) => Math.max(1, a - 1))}
                   aria-label="-"
                   className="tap-44 flex items-center justify-center rounded-md text-foreground hover:bg-secondary"
                 >
                   <Icon name="MinusIcon" size={18} />
                 </button>
                 <span className="text-base font-medium text-foreground">
-                  {guests} {guests > 1 ? t?.booking?.guestsPlural : t?.booking?.guest}
+                  {adults} {adults > 1 ? t?.booking?.adultsPlural : t?.booking?.adult}
                 </span>
                 <button
                   type="button"
-                  onClick={() => setGuests((g) => Math.min(30, g + 1))}
+                  onClick={() => setAdults((a) => Math.min(30, a + 1))}
+                  aria-label="+"
+                  className="tap-44 flex items-center justify-center rounded-md text-foreground hover:bg-secondary"
+                >
+                  <Icon name="PlusIcon" size={18} />
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {t?.booking?.children}
+              </span>
+              <div className="flex h-12 items-center justify-between rounded-md border border-input bg-background px-1">
+                <button
+                  type="button"
+                  onClick={() => changeChildren(-1)}
+                  aria-label="-"
+                  className="tap-44 flex items-center justify-center rounded-md text-foreground hover:bg-secondary"
+                >
+                  <Icon name="MinusIcon" size={18} />
+                </button>
+                <span className="text-base font-medium text-foreground">
+                  {children} {children > 1 ? t?.booking?.childrenPlural : t?.booking?.child}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => changeChildren(1)}
                   aria-label="+"
                   className="tap-44 flex items-center justify-center rounded-md text-foreground hover:bg-secondary"
                 >
@@ -199,6 +240,45 @@ export default function HeroSection() {
             >
               {t?.booking?.search}
             </button>
+
+            {children > 0 && (
+              <div className="col-span-full border-t border-border pt-4">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                  {childAges.map((age, i) => (
+                    <label key={i} className="flex flex-col gap-1.5">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                        {t?.booking?.childAge} {i + 1}
+                      </span>
+                      <select
+                        value={age}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setChildAges((ages) => ages.map((a, idx) => (idx === i ? v : a)));
+                          setAgesError(false);
+                        }}
+                        aria-invalid={agesError && age === ''}
+                        className={`h-12 w-full rounded-md border bg-background px-3 text-base text-foreground focus:border-primary focus:outline-none ${
+                          agesError && age === '' ? 'border-destructive' : 'border-input'
+                        }`}
+                      >
+                        <option value="">{t?.booking?.selectAge}</option>
+                        <option value="0">{t?.booking?.underOne}</option>
+                        {Array.from({ length: 17 }, (_, n) => n + 1).map((n) => (
+                          <option key={n} value={String(n)}>
+                            {n} {n > 1 ? t?.booking?.years : t?.booking?.year}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ))}
+                </div>
+                {agesError && (
+                  <p role="alert" className="mt-3 text-sm font-medium text-destructive">
+                    {t?.booking?.agesRequired}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
           <p className="mt-3 flex items-center justify-center gap-2 text-sm text-muted-foreground md:justify-start">
             <Icon name="CheckBadgeIcon" size={16} className="text-sage" />

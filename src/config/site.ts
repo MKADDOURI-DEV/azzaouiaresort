@@ -36,14 +36,26 @@ export const siteConfig = {
  * Construit le lien Nozoul. Le moteur attend exactement : period=ARRIVEE,DEPART & adults=N
  * (& child=N & ages=A,B si enfants). Même format que l'ancien site.
  */
-export function buildBookingUrl(params?: { checkIn?: string; checkOut?: string; guests?: number }) {
+export function buildBookingUrl(params?: {
+  checkIn?: string;
+  checkOut?: string;
+  adults?: number;
+  children?: number;
+  childAges?: (string | number)[];
+}) {
   if (!params) return siteConfig.bookingUrl;
   const pairs: string[] = [];
   if (params.checkIn && params.checkOut) {
     pairs.push(`period=${encodeURIComponent(`${params.checkIn},${params.checkOut}`)}`);
   }
-  if (params.guests) pairs.push(`adults=${encodeURIComponent(String(params.guests))}`);
-  if (!pairs.length) return siteConfig.bookingUrl;
+  pairs.push(`adults=${encodeURIComponent(String(params.adults || 1))}`);
+  // "child" et "ages" ne sont envoyés que s'il y a au moins un enfant
+  const kids = params.children || 0;
+  if (kids > 0) {
+    pairs.push(`child=${kids}`);
+    const ages = (params.childAges || []).filter((a) => a !== '' && a !== undefined && a !== null).join(',');
+    if (ages) pairs.push(`ages=${encodeURIComponent(ages)}`);
+  }
   const base = siteConfig.bookingUrl;
   return `${base}${base.includes('?') ? '&' : '?'}${pairs.join('&')}`;
 }

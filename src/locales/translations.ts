@@ -13,7 +13,7 @@ export const languages: { code: Lang; label: string; dir: 'ltr' | 'rtl' }[] = [
 export interface Dictionary {
   nav: { home: string; stay: string; services: string; gallery: string; story: string; contact: string; book: string; menu: string; close: string; language: string };
   hero: { eyebrow: string; title: string; subtitle: string; book: string; discover: string };
-  booking: { checkIn: string; checkOut: string; guests: string; guest: string; guestsPlural: string; search: string; note: string };
+  booking: { checkIn: string; checkOut: string; adults: string; adult: string; adultsPlural: string; children: string; child: string; childrenPlural: string; childAge: string; selectAge: string; underOne: string; year: string; years: string; agesRequired: string; search: string; note: string };
   highlights: { eyebrow: string; title: string; items: { title: string; text: string }[] };
   stay: { eyebrow: string; title: string; intro: string; note: string; book: string; from: string; perNight: string; rates: string; goodToKnow: string; prev: string; next: string };
   services: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[] };
@@ -54,9 +54,18 @@ export const translations: Record<Lang, Dictionary> = {
     "booking": {
       "checkIn": "Arrivée",
       "checkOut": "Départ",
-      "guests": "Voyageurs",
-      "guest": "voyageur",
-      "guestsPlural": "voyageurs",
+      "adults": "Adultes",
+      "adult": "adulte",
+      "adultsPlural": "adultes",
+      "children": "Enfants",
+      "child": "enfant",
+      "childrenPlural": "enfants",
+      "childAge": "Âge de l'enfant",
+      "selectAge": "Choisir l'âge",
+      "underOne": "Moins d'1 an",
+      "year": "an",
+      "years": "ans",
+      "agesRequired": "Merci d'indiquer l'âge de chaque enfant.",
       "search": "Vérifier la disponibilité",
       "note": "Réservation directe auprès d’Azzaouia Resort"
     },
@@ -234,9 +243,18 @@ export const translations: Record<Lang, Dictionary> = {
     "booking": {
       "checkIn": "Check-in",
       "checkOut": "Check-out",
-      "guests": "Guests",
-      "guest": "guest",
-      "guestsPlural": "guests",
+      "adults": "Adults",
+      "adult": "adult",
+      "adultsPlural": "adults",
+      "children": "Children",
+      "child": "child",
+      "childrenPlural": "children",
+      "childAge": "Child age",
+      "selectAge": "Select age",
+      "underOne": "Under 1",
+      "year": "year",
+      "years": "years",
+      "agesRequired": "Please select the age of each child.",
       "search": "Check availability",
       "note": "Book directly with Azzaouia Resort"
     },
@@ -414,9 +432,18 @@ export const translations: Record<Lang, Dictionary> = {
     "booking": {
       "checkIn": "الوصول",
       "checkOut": "المغادرة",
-      "guests": "الضيوف",
-      "guest": "ضيف",
-      "guestsPlural": "ضيوف",
+      "adults": "البالغون",
+      "adult": "بالغ",
+      "adultsPlural": "بالغين",
+      "children": "الأطفال",
+      "child": "طفل",
+      "childrenPlural": "أطفال",
+      "childAge": "عمر الطفل",
+      "selectAge": "اختر العمر",
+      "underOne": "أقل من سنة",
+      "year": "سنة",
+      "years": "سنوات",
+      "agesRequired": "يرجى تحديد عمر كل طفل.",
       "search": "تحقق من التوفر",
       "note": "احجز مباشرة لدى منتجع الزاوية"
     },
