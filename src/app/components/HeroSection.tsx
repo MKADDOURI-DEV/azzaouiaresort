@@ -263,7 +263,7 @@ export default function HeroSection() {
                       >
                         <option value="">{t?.booking?.selectAge}</option>
                         <option value="0">{t?.booking?.underOne}</option>
-                        {Array.from({ length: 17 }, (_, n) => n + 1).map((n) => (
+                        {Array.from({ length: 12 }, (_, n) => n + 1).map((n) => (
                           <option key={n} value={String(n)}>
                             {n} {n > 1 ? t?.booking?.years : t?.booking?.year}
                           </option>

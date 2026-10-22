@@ -45,7 +45,7 @@ export default function ContactSection() {
     {
       icon: 'ChatBubbleLeftRightIcon',
       label: t.contact.whatsapp,
-      value: siteConfig.contact.phoneDisplay,
+      value: siteConfig.contact.phoneDisplaySecondary,
       href: whatsappLink(t.contact.whatsappMessage),
     },
     {

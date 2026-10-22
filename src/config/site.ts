@@ -18,7 +18,7 @@ export const siteConfig = {
     phoneDisplaySecondary: '06 70 19 60 94',
     phoneHref: 'tel:+212663335672',
     phoneHrefSecondary: 'tel:+212670196094',
-    whatsappNumber: '212663335672',
+    whatsappNumber: '212670196094', // 06 70 19 60 94
     email: 'azzaouiaresort@gmail.com',
     address: 'Village Aïn Sahla, Commune Bouchfaa, Cercle Oued Amlil, Province de Taza, Maroc',
   },

@@ -26,7 +26,7 @@ export default function ServicesSection() {
           <Reveal className="lg:sticky lg:top-28">
             <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-secondary card-shadow lg:aspect-[4/5]">
               <AppImage
-                src="/assets/photos/galerie/galerie-02.jpg"
+                src="/assets/photos/galerie/galerie-04.jpg"
                 alt={altText?.[lang]}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
