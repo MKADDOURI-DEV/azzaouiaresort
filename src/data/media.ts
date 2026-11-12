@@ -61,7 +61,6 @@ export const galleryPhotos: GalleryPhoto[] = [
   { src: '/assets/photos/galerie/galerie-01.jpg', filter: 'grounds', ratio: 'landscape', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
   { src: '/assets/photos/galerie/galerie-02.jpg', filter: 'grounds', ratio: 'square', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
   { src: '/assets/photos/galerie/galerie-03.jpg', filter: 'grounds', ratio: 'landscape', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
-  { src: '/assets/photos/galerie/galerie-04.jpg', filter: 'grounds', ratio: 'square', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
   { src: '/assets/photos/galerie/galerie-05.jpg', filter: 'grounds', ratio: 'landscape', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
   { src: '/assets/photos/galerie/galerie-06.jpg', filter: 'grounds', ratio: 'square', alt: {"fr": "Le Domaine — Azzaouia Resort", "en": "The Grounds — Azzaouia Resort", "ar": "فضاء المنتجع — Azzaouia Resort"} },
   { src: '/assets/photos/galerie/galerie-07.jpg', filter: 'rooms', ratio: 'landscape', alt: {"fr": "Chambre Double — Azzaouia Resort", "en": "Double Room — Azzaouia Resort", "ar": "غرفة مزدوجة — Azzaouia Resort"} },
