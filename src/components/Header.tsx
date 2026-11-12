@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
 import AppLogo from '@/components/ui/AppLogo';
 import { useTranslation } from '@/context/LanguageContext';
@@ -16,6 +16,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const openY = useRef(0);
 
   const links = [
     { href: '#hebergement', label: t?.nav?.stay },
@@ -28,8 +29,8 @@ export default function Header() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      // Le menu mobile se ferme au scroll
-      setOpen(false);
+      // Le menu mobile se ferme seulement après un vrai scroll (évite les faux événements sur mobile)
+      if (Math.abs(window.scrollY - openY.current) > 60) setOpen(false);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -47,6 +48,7 @@ export default function Header() {
   const solid = scrolled || open;
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         solid ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
@@ -126,7 +128,10 @@ export default function Header() {
           {/* Burger */}
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => {
+              openY.current = window.scrollY;
+              setOpen((v) => !v);
+            }}
             aria-label={open ? t?.nav?.close : t?.nav?.menu}
             aria-expanded={open}
             className={`tap-44 lg:hidden flex items-center justify-center rounded-full ${
@@ -138,9 +143,11 @@ export default function Header() {
         </div>
       </div>
 
+    </header>
+
       {/* Menu mobile : fond flou, liens + CTA seulement */}
       {open && (
-        <div className="lg:hidden fixed inset-x-0 top-16 bottom-0 bg-background/95 backdrop-blur-lg animate-fade overflow-y-auto">
+        <div className="lg:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-background/95 backdrop-blur-lg animate-fade overflow-y-auto">
           <nav className="flex flex-col px-6 py-8" aria-label="Menu mobile">
             {links?.map((link) => (
               <a
@@ -163,6 +170,6 @@ export default function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
