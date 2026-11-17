@@ -10,7 +10,7 @@ import { galleryPhotos, type GalleryFilter } from '@/data/media';
 /** Nombre de photos affichées avant le badge "+N" (le clic ouvre la lightbox avec toutes les photos). */
 const GALLERY_MAX = 8;
 
-const filterKeys: GalleryFilter[] = ['all', 'rooms', 'suites', 'dorms', 'grounds'];
+const filterKeys: GalleryFilter[] = ['all', 'rooms', 'suites', 'dorms', 'grounds', 'resto'];
 
 // Hauteur selon le ratio pour un effet masonry (colonnes CSS)
 const ratioClass: Record<string, string> = {

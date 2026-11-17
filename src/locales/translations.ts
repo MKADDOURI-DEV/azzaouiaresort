@@ -17,7 +17,7 @@ export interface Dictionary {
   highlights: { eyebrow: string; title: string; items: { title: string; text: string }[] };
   stay: { eyebrow: string; title: string; intro: string; note: string; book: string; from: string; perNight: string; rates: string; goodToKnow: string; prev: string; next: string };
   services: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[] };
-  gallery: { eyebrow: string; title: string; intro: string; filters: { all: string; rooms: string; suites: string; dorms: string; grounds: string }; less: string; close: string; prev: string; next: string };
+  gallery: { eyebrow: string; title: string; intro: string; filters: { all: string; rooms: string; suites: string; dorms: string; grounds: string; resto: string }; less: string; close: string; prev: string; next: string };
   story: { eyebrow: string; title: string; paragraphs: string[]; features: string[]; since: string; tagline: string };
   location: { eyebrow: string; title: string; intro: string; items: { label: string; text: string }[]; mapTitle: string; openMap: string };
   contact: {
@@ -132,7 +132,8 @@ export const translations: Record<Lang, Dictionary> = {
         "rooms": "Chambres",
         "suites": "Suites",
         "dorms": "Dortoirs",
-        "grounds": "Domaine"
+        "grounds": "Domaine",
+        "resto": "Restaurant"
       },
       "less": "Voir moins",
       "close": "Fermer",
@@ -321,7 +322,8 @@ export const translations: Record<Lang, Dictionary> = {
         "rooms": "Rooms",
         "suites": "Suites",
         "dorms": "Dormitories",
-        "grounds": "Grounds"
+        "grounds": "Grounds",
+        "resto": "Restaurant"
       },
       "less": "Show less",
       "close": "Close",
@@ -510,7 +512,8 @@ export const translations: Record<Lang, Dictionary> = {
         "rooms": "الغرف",
         "suites": "الأجنحة",
         "dorms": "المهاجع",
-        "grounds": "المنتجع"
+        "grounds": "المنتجع",
+        "resto": "المطعم"
       },
       "less": "عرض أقل",
       "close": "إغلاق",
