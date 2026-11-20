@@ -153,4 +153,9 @@ export const galleryPhotos: GalleryPhoto[] = [
   { src: '/assets/photos/resto/resto-05.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Restaurant — Azzaouia Resort", "en": "Restaurant — Azzaouia Resort", "ar": "المطعم — Azzaouia Resort"} },
   { src: '/assets/photos/resto/resto-06.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Restaurant — Azzaouia Resort", "en": "Restaurant — Azzaouia Resort", "ar": "المطعم — Azzaouia Resort"} },
   { src: '/assets/photos/resto/resto-07.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Restaurant — Azzaouia Resort", "en": "Restaurant — Azzaouia Resort", "ar": "المطعم — Azzaouia Resort"} },
+  { src: '/assets/photos/resto/resto-08.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Salle du restaurant — Azzaouia Resort", "en": "Restaurant dining hall — Azzaouia Resort", "ar": "قاعة المطعم — Azzaouia Resort"} },
+  { src: '/assets/photos/resto/resto-09.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Salle du restaurant — Azzaouia Resort", "en": "Restaurant dining hall — Azzaouia Resort", "ar": "قاعة المطعم — Azzaouia Resort"} },
+  { src: '/assets/photos/resto/resto-10.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Salle du restaurant — Azzaouia Resort", "en": "Restaurant dining hall — Azzaouia Resort", "ar": "قاعة المطعم — Azzaouia Resort"} },
+  { src: '/assets/photos/resto/resto-11.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Salle du restaurant — Azzaouia Resort", "en": "Restaurant dining hall — Azzaouia Resort", "ar": "قاعة المطعم — Azzaouia Resort"} },
+  { src: '/assets/photos/resto/resto-12.jpg', filter: 'resto', ratio: 'landscape', alt: {"fr": "Salle du restaurant — Azzaouia Resort", "en": "Restaurant dining hall — Azzaouia Resort", "ar": "قاعة المطعم — Azzaouia Resort"} },
 ];
